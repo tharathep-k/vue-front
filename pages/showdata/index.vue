@@ -1,17 +1,28 @@
 <template>
   <div>
-    <h1>Show Data</h1>
+    <div>
+      
+    </div>
   </div>
 </template>
 
 <script>
-import protectRoute from "../../middlewares/auth";
+import { authStore } from "../../store/auth-store";
 
-export default {
-  middleware: {
-    protectRoute,
-  },
-};
+definePageMeta({
+  middleware: [
+    function () {
+      const store = authStore();
+
+      const isAuthenticated = store.isAuthenticate;
+      if (!isAuthenticated) {
+        return navigateTo("/");
+      }
+    },
+  ],
+});
 </script>
+
+<script setup></script>
 
 <style scoped></style>

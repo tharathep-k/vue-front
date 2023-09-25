@@ -33,8 +33,8 @@ export const authStore = defineStore("auth", {
 
     logout() {
       removeAccessToken();
-      user = null;
       this.isAuthenticate = false;
+      this.user = null;
     },
   },
 });

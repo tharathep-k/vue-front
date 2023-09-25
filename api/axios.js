@@ -10,7 +10,6 @@ axios.interceptors.request.use(
     const token = getAccessToken();
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-      console.log("=====",config);
     }
     return config;
   },

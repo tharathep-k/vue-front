@@ -33,6 +33,10 @@ export default {
 </script>
 
 <script setup>
+// definePageMeta({
+//   middleware: ["auth"],
+// });
+
 import { object } from "joi";
 
 import loginValidate from "./validator/login-validate";
@@ -40,8 +44,8 @@ import { authStore } from "../store/auth-store";
 
 const store = authStore();
 
-const user = store.user
-console.log("user : ",user);
+const user = store.user;
+console.log("user : ", user);
 
 const initialLogin = {
   email: "",
@@ -61,6 +65,13 @@ const onSubmit = async (e) => {
 
     await store.login(initialLogin);
     errorMessage = {};
+
+    const isAuthenticated = store.isAuthenticate;
+    if (isAuthenticated) {
+      return navigateTo("/showdata");
+    }
+
+    console.log("Login Success !!");
   } catch (error) {
     console.log("Login False !!");
   }

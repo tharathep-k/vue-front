@@ -5,9 +5,14 @@
         <NuxtLink to="/" style="text-decoration: none">
           <h2>Logo</h2>
         </NuxtLink>
-        <NuxtLink to="/login" style="text-decoration: none">
-          <h3>Login</h3>
-        </NuxtLink>
+        <div class="link">
+          <NuxtLink to="/login" style="text-decoration: none">
+            <h3>Login</h3>
+          </NuxtLink>
+          <div @click="onLogout">
+            <h3>Logout</h3>
+          </div>
+        </div>
       </nav>
     </header>
     <div>
@@ -16,7 +21,25 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { authStore } from "../store/auth-store";
+
+const store = authStore();
+const isAuthenticated = store.isAuthenticate;
+
+const onLogout = (e) => {
+  try {
+    store.logout();
+
+    const isAuthenticated = store.isAuthenticate;
+    if (!isAuthenticated) {
+      return navigateTo("/login");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+</script>
 
 <style scoped>
 header {
@@ -45,5 +68,10 @@ h3 {
 
 h3:hover {
   color: orange;
+}
+
+.link {
+  display: flex;
+  gap: 16px;
 }
 </style>
