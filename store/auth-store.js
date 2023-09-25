@@ -24,6 +24,8 @@ export const authStore = defineStore("auth", {
     async fetchMe() {
       try {
         const res = await authApi.fetchme();
+        console.log(res.data.user);
+        console.log("authen : ",this.isAuthenticate);
         this.user = res.data.user;
         this.isAuthenticate = true;
       } catch (error) {

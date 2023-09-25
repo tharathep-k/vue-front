@@ -34,7 +34,7 @@ export default {
 
 <script setup>
 // definePageMeta({
-//   middleware: ["auth"],
+//   middleware: "auth",
 // });
 
 import { object } from "joi";
