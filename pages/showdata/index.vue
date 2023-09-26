@@ -16,37 +16,30 @@ import { authStore } from "../../store/auth-store";
 import datacard from "../../components/showdata/datacard.vue";
 import searchinput from '~/components/showdata/searchinput.vue';
 
-
-// definePageMeta({
-//   middleware: [
-//     function () {
-//       const store = authStore();
-
-//       const isAuthenticated = store.isAuthenticate;
-//       if (!isAuthenticated) {
-//         return navigateTo("/");
-//       }
-//     },
-//   ],
-// });
-
 export default {
   name: "showdata",
   components: {
     datacard,
     searchinput
   },
-  middleware: [
-    function () {
-      const store = authStore();
+  // middleware: [
+  //   function () {
+  //     const store = authStore();
 
-      const isAuthenticated = store.isAuthenticate;
-      if (!isAuthenticated) {
-        return navigateTo("/");
-      }
-    },
-  ],
+  //     const isAuthenticated = store.isAuthenticate;
+  //     if (!isAuthenticated) {
+  //       return navigateTo("/");
+  //     }
+  //   },
+  // ],
+  // middleware: ["auth"]
 };
+</script>
+
+<script setup>
+definePageMeta({
+  middleware: "auth"
+});
 </script>
 
 <style scoped>
