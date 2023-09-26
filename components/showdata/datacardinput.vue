@@ -78,7 +78,7 @@ const onSubmit = async () => {
     errorMessage = {};
 
     alert("Edit Success");
-    window.location.reload();
+    // window.location.reload();
   } catch (error) {
     console.log(error);
   }
