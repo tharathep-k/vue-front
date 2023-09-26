@@ -10,11 +10,9 @@ import { Teleport } from 'nuxt/dist/app/compat/capi';
           <Teleport to="body">
             <div class="modal" v-if="isOpen">
               <datacardinput @close="isOpen = false" :userId="el.id" />
-              <!-- <datacardinput /> -->
             </div>
           </Teleport>
         </div>
-
         <div @click="onDelete(el.id)">
           <img class="bin" src="../../public/bin.svg" />
         </div>
@@ -26,10 +24,17 @@ import { Teleport } from 'nuxt/dist/app/compat/capi';
 <script>
 import datacardinput from "./datacardinput.vue";
 
+import { userStore } from "../../store/user-store";
+
 export default {
   name: "datacard",
   components: {
     datacardinput,
+  },
+  data() {
+    return {
+      userdata: []
+    }
   },
 };
 </script>
@@ -42,7 +47,13 @@ const isOpen = ref(false);
 
 const store = userStore();
 await store.getAllUser();
-const data = store.userData;
+const data = ref(store.filterUserData);
+
+watch(() => store.filterUserData, (newValue, oldValue) => {
+  // When the data changes, update the data ref
+  data.value = newValue;
+});
+
 
 const onDelete = async (e) => {
   try {
@@ -67,6 +78,7 @@ const onDelete = async (e) => {
   padding: 16px 0;
   gap: 16px;
 }
+
 .card {
   border: 1px solid black;
   width: 40vw;
@@ -87,14 +99,17 @@ const onDelete = async (e) => {
   width: 12rem;
   padding: 4px;
 }
+
 .edit {
   width: 48px;
   height: 48px;
 }
+
 .bin {
   width: 34px;
   height: 34px;
 }
+
 .modal {
   position: absolute;
   top: 0;

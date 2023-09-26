@@ -5,7 +5,7 @@ export default defineNuxtRouteMiddleware(() => {
   try {
     const store = authStore();
     if (typeof localStorage !== "undefined" && getAccessToken()) {
-        console.log("eieiza hahaplus");
+        // consoles.log("eieiza hahaplus");
       store.fetchMe();
     }
   } catch (error) {

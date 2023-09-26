@@ -3,7 +3,7 @@
     <div class="body">
       <div class="container">
         <div class="searchbar">
-          <input />
+          <searchinput />
         </div>
         <datacard />
       </div>
@@ -14,6 +14,8 @@
 <script>
 import { authStore } from "../../store/auth-store";
 import datacard from "../../components/showdata/datacard.vue";
+import searchinput from '~/components/showdata/searchinput.vue';
+
 
 // definePageMeta({
 //   middleware: [
@@ -32,6 +34,7 @@ export default {
   name: "showdata",
   components: {
     datacard,
+    searchinput
   },
   middleware: [
     function () {
@@ -46,13 +49,12 @@ export default {
 };
 </script>
 
-<script setup></script>
-
 <style scoped>
 .body {
   display: flex;
   justify-content: center;
 }
+
 .container {
   border: 2px solid black;
   width: 70vw;
@@ -67,12 +69,5 @@ export default {
 .searchbar {
   display: flex;
   justify-content: center;
-}
-
-input {
-  width: 40vw;
-  height: 36px;
-  padding-left: 4px;
-  font-size: 20px;
 }
 </style>

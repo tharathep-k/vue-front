@@ -6,10 +6,10 @@
           <h2>Logo</h2>
         </NuxtLink>
         <div class="link">
-          <NuxtLink to="/login" style="text-decoration: none">
+          <NuxtLink to="/login" style="text-decoration: none" v-if="isAuthenticated === false">
             <h3>Login</h3>
           </NuxtLink>
-          <div @click="onLogout">
+          <div @click="onLogout" v-else>
             <h3>Logout</h3>
           </div>
         </div>
@@ -23,9 +23,14 @@
 
 <script setup>
 import { authStore } from "../store/auth-store";
+import { ref } from "vue"
 
 const store = authStore();
-const isAuthenticated = store.isAuthenticate;
+const isAuthenticated = ref(store.isAuthenticate);
+
+watch(() => store.isAuthenticate, (newValue, oldValue) => {
+  isAuthenticated.value = newValue
+})
 
 const onLogout = (e) => {
   try {
