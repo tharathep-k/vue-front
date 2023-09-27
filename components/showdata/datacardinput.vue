@@ -4,32 +4,18 @@
       <h2>Edit Information</h2>
       <div class="containerinput">
         <label>Email</label>
-        <input
-          class="email"
-          type="text"
-          placeholder="Email"
-          v-model="initialEdit.email"
-        />
+        <input class="email" type="text" placeholder="Email" v-model="initialEdit.email" />
         <p>{{ errorMessage.email }}</p>
       </div>
       <div class="containerinput">
         <label>Password</label>
-        <input
-          class="password"
-          type="password"
-          placeholder="Password"
-          v-model="initialEdit.password"
-        />
+        <input class="password" type="password" placeholder="Password" v-model="initialEdit.password" />
         <p>{{ errorMessage.password }}</p>
       </div>
       <div class="containerinput">
         <label>Confirm Password</label>
-        <input
-          class="ConfirmPassword"
-          type="password"
-          placeholder="Confirm Password"
-          v-model="initialEdit.confirmpassword"
-        />
+        <input class="ConfirmPassword" type="password" placeholder="Confirm Password"
+          v-model="initialEdit.confirmpassword" />
         <p>{{ errorMessage.confirmpassword }}</p>
       </div>
       <div class="button">
@@ -48,6 +34,8 @@ export default {
 </script>
 
 <script setup>
+import { reactive } from "vue";
+
 import { userStore } from "../../store/user-store";
 import validateEditUser from "../validator/edit-validate";
 
@@ -62,23 +50,36 @@ const initialEdit = {
   confirmpassword: "",
 };
 
-let errorMessage = {};
+let errorMessage = reactive({});
 
 const onSubmit = async () => {
   try {
     const result = validateEditUser(initialEdit);
+    console.log("1", result);
+
     if (result) {
-      Object.assign(errorMessage, result);
+      console.log("2", result);
+
+      errorMessage.email = result.email;
+      errorMessage.password = result.password;
+      errorMessage.confirmpassword = result.confirmpassword;
+
+      return
+
+      // return Object.assign(errorMessage, result);
+      // console.log("----",errorMessage.value.email);
+      // alert({initialEdit})
+      // return console.log(result);
     }
 
     const id = props.userId
-    const data = {...initialEdit, id}
+    const data = { ...initialEdit, id }
     await store.editUser(data);
-
     errorMessage = {};
 
+
     alert("Edit Success");
-    // window.location.reload();
+    navigateTo("/")
   } catch (error) {
     console.log(error);
   }
@@ -99,11 +100,12 @@ const onSubmit = async () => {
   justify-content: space-evenly;
   align-items: center;
 }
+
 .containerinput {
   display: flex;
   flex-direction: column;
   width: 20vw;
-  gap: 8px;
+  gap: 6px;
 }
 
 input {
@@ -111,10 +113,12 @@ input {
   border-radius: 4px;
   height: 24px;
 }
+
 .button {
   display: flex;
   gap: 32px;
 }
+
 .submit {
   width: 4rem;
   height: 2rem;
@@ -123,6 +127,7 @@ input {
   color: azure;
   border: none;
 }
+
 .cancel {
   width: 4rem;
   height: 2rem;
@@ -135,5 +140,6 @@ input {
 p {
   color: red;
   font-size: 14px;
+  margin-top: 0;
 }
 </style>

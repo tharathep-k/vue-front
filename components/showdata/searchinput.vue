@@ -28,10 +28,6 @@ export default {
 }
 </script>
 
-<script setup>
-
-</script>
-
 <style scoped>
 input {
     width: 40vw;

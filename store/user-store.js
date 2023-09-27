@@ -40,7 +40,7 @@ export const userStore = defineStore("user", {
 
     async searchUserByEmail(input) {
       try {
-        console.log("ooooooo : ",input);
+        // console.log("ooooooo : ",input);
         const res = await userApi.searchuser(input)
         // console.log(res.data);
         this.filterUserData = res.data

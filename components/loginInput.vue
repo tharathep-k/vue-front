@@ -3,22 +3,12 @@
     <form @submit.prevent="onSubmit">
       <div class="inputs">
         <label>Email</label>
-        <input
-          class="email"
-          type="text"
-          placeholder="Email"
-          v-model="initialLogin.email"
-        />
+        <input class="email" type="text" placeholder="Email" v-model="initialLogin.email" />
         <p>{{ errorMessage.email }}</p>
       </div>
       <div class="inputs">
         <label>Password</label>
-        <input
-          class="password"
-          type="password"
-          placeholder="Password"
-          v-model="initialLogin.password"
-        />
+        <input class="password" type="password" placeholder="Password" v-model="initialLogin.password" />
         <p>{{ errorMessage.password }}</p>
       </div>
       <button>Submit</button>
@@ -38,6 +28,7 @@ export default {
 // });
 
 import { object } from "joi";
+import { reactive } from "vue"
 
 import loginValidate from "./validator/login-validate";
 import { authStore } from "../store/auth-store";
@@ -52,15 +43,19 @@ const initialLogin = {
   password: "",
 };
 
-let errorMessage = {};
+let errorMessage = reactive({});
 
 const onSubmit = async (e) => {
   try {
     console.log(initialLogin);
     const result = loginValidate(initialLogin);
     if (result) {
-      Object.assign(errorMessage, result);
-      //   console.log("====== :", errorMessage);
+      errorMessage.email = result.email;
+      errorMessage.password = result.password;
+      return
+
+      // return Object.assign(errorMessage, result);
+      //  console.log("====== :", errorMessage);
     }
 
     await store.login(initialLogin);
@@ -90,7 +85,7 @@ form {
   display: flex;
   flex-direction: column;
   width: 20vw;
-  gap: 8px;
+  gap: 6px;
 }
 
 input {
@@ -111,5 +106,6 @@ button {
 p {
   color: red;
   font-size: 14px;
+  margin-top: 0;
 }
 </style>

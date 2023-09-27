@@ -29,7 +29,7 @@ export default {
 
 .body {
   width: 40vw;
-  height: 44vh;
+  height: 46vh;
   border: 1px solid black;
   display: flex;
   flex-direction: column;

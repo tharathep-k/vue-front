@@ -6,6 +6,9 @@
           <h2>Logo</h2>
         </NuxtLink>
         <div class="link">
+          <NuxtLink to="/showdata" style="text-decoration: none;">
+            <h3>Data</h3>
+          </NuxtLink>
           <NuxtLink to="/login" style="text-decoration: none" v-if="isAuthenticated === false">
             <h3>Login</h3>
           </NuxtLink>
