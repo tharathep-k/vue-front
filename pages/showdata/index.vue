@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Title>List Data</Title>
     <div class="body">
       <div class="container">
         <div class="searchbar">

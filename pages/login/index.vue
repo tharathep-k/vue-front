@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Title>Login Page</Title>
     <div class="container">
       <div class="body">
         <h2>Login</h2>

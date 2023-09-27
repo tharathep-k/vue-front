@@ -20,7 +20,7 @@ export default {
         search(input) {
             const time = setTimeout(() => {
                 store.searchUserByEmail({value: input})
-            }, 500)
+            }, 200)
             return () => clearTimeout(time)
             // store.searchUser(input)
         }
